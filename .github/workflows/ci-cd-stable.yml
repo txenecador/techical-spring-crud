@@ -17,6 +17,7 @@ jobs:
           distribution: 'temurin'
       - name: Run Tests
         run: mvn test
-      - name: 'gcr.io/cloud-builders/docker'
+      - name: Build image
+        uses: cr.io/cloud-builders/docker
         args: [ 'build', '-t', 'us-west2-docker.pkg.dev/txenecador-db/cockpit/cockpit:stable', '.' ]
         images: 'us-west2-docker.pkg.dev/txenecador-db/cockpit/cockpit:stable'
