@@ -11,7 +11,8 @@ RUN mvn -f /home/app/pom.xml clean package
 # Package stage
 #
 FROM maven:3.8.3-openjdk-17
-EXPOSE 8080:8080
+#EXPOSE 8080:8080
+ENV PORT 8080
 COPY --from=build /home/app/target/*.jar .
 ENTRYPOINT ["java","-jar", "CockPit-0.0.1-SNAPSHOT.jar"]
 

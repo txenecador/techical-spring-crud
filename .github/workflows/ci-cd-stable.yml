@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Run Tests
+        run: mvn test
+      - name: 'gcr.io/cloud-builders/docker'
+        args: [ 'build', '-t', 'us-west2-docker.pkg.dev/txenecador-db/cockpit/cockpit:stable', '.' ]
+      images:
+        - 'us-west2-docker.pkg.dev/txenecador-db/cockpit/cockpit:stable'
