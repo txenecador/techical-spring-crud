@@ -17,9 +17,10 @@ jobs:
           distribution: 'temurin'
       - name: Run Tests
         run: mvn test
+      - name: Log secret
+        run: echo ${{secrets.GCP_SERVICE_ACCOUNT_SECRET}}
       - name: Build image
         uses: FlowSquad/docker-cloud-build@v1.0.1
-        run: echo ${{secrets.GCP_SERVICE_ACCOUNT_SECRET}}
         with:
           gcp-project-id: txenecador-db
           gcp-service-account-key: ${{secrets.GCP_SERVICE_ACCOUNT_SECRET}}
