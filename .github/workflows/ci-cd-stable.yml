@@ -21,7 +21,7 @@ jobs:
         uses: FlowSquad/docker-cloud-build@v1.0.1
         with:
           gcp-project-id: txenecador-db
-          gcp-service-account-key: "bce670aaebccfd1ec2f38bc774b4f46ca75f2eb4"
+          gcp-service-account-key: ${{ secrets.GCP_SERVICE_ACCOUNT_SECRET }}
           image-name: cockpit-stable
           image-sources: Dockerfile
           github-disabled: true
