@@ -18,6 +18,10 @@ jobs:
       - name: Run Tests
         run: mvn test
       - name: Build image
-        uses: cr.io/cloud-builders/docker
-        args: [ 'build', '-t', 'us-west2-docker.pkg.dev/txenecador-db/cockpit/cockpit:stable', '.' ]
-        images: 'us-west2-docker.pkg.dev/txenecador-db/cockpit/cockpit:stable'
+        uses: FlowSquad/docker-cloud-build@v1.0.1
+        with:
+          gcp-project-id: txenecador-db
+          gcp-service-account-key: bce670aaebccfd1ec2f38bc774b4f46ca75f2eb4
+          image-name: cockpit-stable
+          image-sources: Dockerfile
+          github-disabled: true
