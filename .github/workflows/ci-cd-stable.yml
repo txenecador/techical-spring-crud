@@ -30,7 +30,7 @@ jobs:
         with:
           version: 'latest'
           project_id: ${{ env.PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_SECRET }}
+          #service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_SECRET }}
       - name: Push Docker image to Google Container Registry
         run: |
           echo ${{ secrets.GCP_SERVICE_ACCOUNT_SECRET }} | base64 --decode > /tmp/gcp_sa_key.json
