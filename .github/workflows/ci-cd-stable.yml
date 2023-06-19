@@ -40,7 +40,7 @@ jobs:
 
       # build image
       - name: Push Docker image
-        run: docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+        run: docker push gcr.io/cogent-nimbus-389215/cockpit:stable
 
 #      - name: Push  image to registry
 #        run: |
