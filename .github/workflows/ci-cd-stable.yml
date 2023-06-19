@@ -26,11 +26,11 @@ jobs:
           IMAGE_NAME: cockpit
           TAG: stable
       - name: Configure Docker authentication
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/auth@v1
         with:
           version: 'latest'
           project_id: ${{ env.PROJECT_ID }}
-          #service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_SECRET }}
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_SECRET }}
       - name: Push Docker image to Google Container Registry
         run: |
           echo ${{ secrets.GCP_SERVICE_ACCOUNT_SECRET }} | base64 --decode > /tmp/gcp_sa_key.json
