@@ -30,11 +30,10 @@ jobs:
           TAG: stable
 
       - name: Configure Docker authentication
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v0.2.0
         with:
-          version: 'latest'
-          project_id: ${{ env.PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_SECRET }}
+          project_id: ${{ env.PROJECT_ID }}
 
       - name: Push Docker image to Google Container Registry
         run: |
