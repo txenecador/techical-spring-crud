@@ -16,5 +16,25 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: Run Tests
         run: mvn test
+
+      # Login
+      - name: Docker authentication
+        uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_SECRET }}
+          project_id: cogent-nimbus-389215
+
+      # gcloud configure docker
+      - name: Configure Docker
+        run: gcloud auth configure-docker --quiet
+
+        # build image
+      - name: Build Docker image
+        run: docker build -t gcr.io/cogent-nimbus-389215/cockpit:snapshot .
+
+      # push image
+      - name: Push Docker image
+        run: docker push gcr.io/cogent-nimbus-389215/cockpit:snapshot
