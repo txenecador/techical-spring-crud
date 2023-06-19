@@ -26,7 +26,7 @@ jobs:
           IMAGE_NAME: cockpit
           TAG: stable
       - name: Configure Docker authentication
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@main
         with:
           version: 'latest'
           project_id: ${{ env.PROJECT_ID }}
