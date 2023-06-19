@@ -17,11 +17,23 @@ jobs:
           distribution: 'temurin'
       - name: Run Tests
         run: mvn test
-      - name: Build image
-        uses: FlowSquad/docker-cloud-build@v1.0.1
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+      - name: Build Docker image
+        run: docker build -t gcr.io/cogent-nimbus-389215/cockpit:stable .
+        env:
+          PROJECT_ID: cogent-nimbus-389215
+          IMAGE_NAME: cockpit
+          TAG: stable
+      - name: Configure Docker authentication
+        uses: google-github-actions/setup-gcloud@master
         with:
-          gcp-project-id: txenecador-db
-          gcp-service-account-key: ${{secrets.GCP_SERVICE_ACCOUNT_SECRET}}
-          image-name: cockpit-stable
-          image-sources: Dockerfile
-          github-disabled: true
+          version: 'latest'
+          project_id: ${{ env.PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_SECRET }}
+      - name: Push Docker image to Google Container Registry
+        run: |
+          echo ${{ secrets.GCP_SERVICE_ACCOUNT_SECRET }} | base64 --decode > /tmp/gcp_sa_key.json
+          gcloud auth activate-service-account --key-file=/tmp/gcp_sa_key.json
+          gcloud auth configure-docker
+          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
