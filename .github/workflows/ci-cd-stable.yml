@@ -33,18 +33,7 @@ jobs:
         # build image
       - name: Build Docker image
         run: docker build -t gcr.io/cogent-nimbus-389215/cockpit:stable .
-        env:
-          PROJECT_ID: cogent-nimbus-389215
-          IMAGE_NAME: cockpit
-          TAG: stable
 
       # build image
       - name: Push Docker image
         run: docker push gcr.io/cogent-nimbus-389215/cockpit:stable
-
-#      - name: Push  image to registry
-#        run: |
-#          echo ${{ secrets.GCP_SERVICE_ACCOUNT_SECRET }} | base64 --decode > /tmp/gcp_sa_key.json
-#          gcloud auth activate-service-account --key-file=/tmp/gcp_sa_key.json
-#          gcloud auth configure-docker
-#          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
